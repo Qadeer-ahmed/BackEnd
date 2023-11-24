@@ -16,5 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',[HotelController::class,'index'])->name('hotel.index');
 Route::post('/',[HotelController::class,'create'])->name('hotel.create');
-Route::get('/edit',[HotelController::class,'edit'])->name('hotel.edit');
+Route::get('/edit/{id}',[HotelController::class,'edit'])->name('hotel.edit');
+Route::put('/edit/{id}',[HotelController::class,'update'])->name('hotel.update');
+Route::get('/delete/{id}',[HotelController::class,'destroy'])->name('hotel.destroy');
 
+ 

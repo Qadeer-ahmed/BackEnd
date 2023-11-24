@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>index</title>
     <!-- Add these lines to your layout file (e.g., resources/views/layouts/app.blade.php) -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVr1GI5eZL/W+8bU5Gg5e4bFlJ" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
 
 </head>
@@ -36,8 +36,8 @@
                         <input type="text" id="location" name="location" class="form-control" value="{{ old('location', isset($hotel) ? $hotel->location : '') }}" required>
                     </div>
                     <div class="mb-3">
-                        <label for="contact_number" class="form-label">contac_number:</label>
-                        <input type="number" id="contact_number" name="contect_number" class="form-control" value="{{ old('contact_number', isset($hotel) ? $hotel->contact_number : '') }}" required>
+                        <label for="contact_number" class="form-label">contact_number:</label>
+                        <input type="number" id="contact_number" name="contact_number" class="form-control" value="{{ old('contact_number', isset($hotel) ? $hotel->contact_number : '') }}" required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">email:</label>
@@ -65,13 +65,13 @@
             </div>
         </div>
     </div>
-    <!-- resources/views/hotels/index.blade.php -->
+    
 
 
-    <div class="container">
+     <div class="container">
         <h2>Hotel List</h2>
         <div class="row">
-            <div class="col-md-6">
+            {{-- <div class="col-md-6"> --}}
                 <table class="table">
                     <thead>
                         <tr>
@@ -87,6 +87,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        
                          @foreach ($hotels as $hotel) 
                             <tr>
                                 <td>{{ $hotel->name }}</td>
@@ -98,11 +99,11 @@
                                 <td>{{ $hotel->rooms }}</td>
                                 <td>{{ $hotel->facilities }}</td>
                                 <td>
-                                    <a href="{{ route('hotels.edit', $hotel->id) }}" class="btn btn-warning">Edit</a>
+                                    <a href="{{url('/edit',$hotel->id)}}" class="btn btn-warning">Edit</a>
                                     <form action="" method="POST" style="display: inline-block;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this hotel?')">Delete</button>
+                                       <a href="{{url('/delete',$hotel->id)}}"  class="btn btn-danger" >delete</a>
                                     </form>
                                 </td>
                             </tr>
@@ -111,7 +112,7 @@
                 </table>
             </div>
         </div>
-    </div>
+    </div> 
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-d7I/Dp8Mz9l2R9Xxjtd2iEUsKSW21fBh7a5zD1+2CyHQp1zLg2LCEUvx4zEDXSbH" crossorigin="anonymous"></script>

@@ -12,8 +12,9 @@ class HotelController extends Controller
      */
     public function index()
     {
-        $hotel=new Hotel();
+        $hotel=Hotel::all();
         return view('index',['hotels'=>$hotel]);
+        
     }
 
     /**
@@ -29,7 +30,7 @@ class HotelController extends Controller
             $hotel->email=$request->email;
             $hotel->description=$request->description;
             $hotel->rooms=$request->rooms;
-            $hotel->facilities=$request->facilities->nullable();
+            $hotel->facilities=$request->facilities;
             $hotel->save();
             return redirect (route('hotel.index'));
     }
@@ -64,7 +65,19 @@ class HotelController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $hotel=hotel::find($id);
+        $hotel->name= $request->name;
+        $hotel->address=$request->address;
+        $hotel->location=$request->location;
+        $hotel->contact_number=$request->contact_number;
+        $hotel->email=$request->email;
+        $hotel->description=$request->description;
+        $hotel->rooms=$request->rooms;
+        $hotel->facilities=$request->facilities;
+        $hotel->save();
+        return redirect (route('hotel.index'));
+
+
     }
 
     /**
@@ -72,6 +85,7 @@ class HotelController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Hotel::destroy($id);
+        return redirect (route('hotel.index'));
     }
 }
