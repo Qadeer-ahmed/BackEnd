@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customers', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('customerName');
-            $table->string('CNIC')->unique();
-            $table->text('address');
-            $table->string('phone_no');
+            // $table->foreignId('hotel_id');
+            
+            $table->string('filename');
+            $table->string('original_filename');
+            $table->string('caption')->nullable();
+            $table->string('alt_text')->nullable();
             $table->timestamps();
-        
             
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('images');
     }
 };

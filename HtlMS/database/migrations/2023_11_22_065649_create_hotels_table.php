@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('email');
             $table->text('description');
             $table->integer('rooms');
-            $table->text('facilities')->nullable();
+            $table->string('facilities')->nullable();
             $table->timestamps();
         });
     }

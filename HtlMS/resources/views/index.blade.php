@@ -54,6 +54,13 @@
                     <div class="mb-3">
                         <label for="facilities" class="form-label">facilities:</label>
                         <input type="text" id="facilities" name="facilities" class="form-control" value="{{ old('facilities', isset($hotel) ? $hotel->facilities : '') }}" required>
+                        {{-- <select name="facilities[]"  multiple='multiple'>
+                            <option value="Wifi">Wifi</option>
+                            <option value="AC">AC</option>
+                            <option value="Heater">Heater</option>
+                            <option value="laundry">laundry</option> --}}
+
+                        </select>
                     </div>
 
                     <!-- Add other form fields here -->
@@ -65,6 +72,7 @@
             </div>
         </div>
     </div>
+    
     
 
 
@@ -98,18 +106,24 @@
                                 <td>{{ $hotel->description }}</td>
                                 <td>{{ $hotel->rooms }}</td>
                                 <td>{{ $hotel->facilities }}</td>
+                                <div>
+                                  
+                                </div>
                                 <td>
                                     <a href="{{url('/edit',$hotel->id)}}" class="btn btn-warning">Edit</a>
                                     <form action="" method="POST" style="display: inline-block;">
                                         @csrf
                                         @method('DELETE')
                                        <a href="{{url('/delete',$hotel->id)}}"  class="btn btn-danger" >delete</a>
+                                      
                                     </form>
                                 </td>
                             </tr>
                          @endforeach 
+                       
                     </tbody>
                 </table>
+                <div>  <a href=" {{ route('hotel.show') }}" class="btn btn-info"> hotels summery</a></div>
             </div>
         </div>
     </div> 

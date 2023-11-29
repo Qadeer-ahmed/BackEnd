@@ -79,6 +79,14 @@ class HotelController extends Controller
 
 
     }
+    
+
+public function list()
+{
+    $hotels = Hotel::all(); 
+    return view('list',['hotels'=>$hotels]);
+}
+
 
     /**
      * Remove the specified resource from storage.
