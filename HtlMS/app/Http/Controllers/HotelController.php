@@ -7,93 +7,44 @@ use App\Models\Hotel;
 
 class HotelController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $hotel=Hotel::all();
-        return view('index',['hotels'=>$hotel]);
-        
-    }
+    // Other methods...
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
-    {
-        $hotel=new Hotel();
-            $hotel->name= $request->name;
-            $hotel->address=$request->address;
-            $hotel->location=$request->location;
-            $hotel->contact_number=$request->contact_number;
-            $hotel->email=$request->email;
-            $hotel->description=$request->description;
-            $hotel->rooms=$request->rooms;
-            $hotel->facilities=$request->facilities;
-            $hotel->save();
-            return redirect (route('hotel.index'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'address' => 'required|string',
+            'location' => 'required|string',
+            'contact_number' => 'required|string',
+            'email' => 'required|email',
+            'description' => 'required|string',
+            'rooms' => 'required|integer',
+            'facilities' => 'array',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $hotel = Hotel::create([
+            'name' => $request->input('name'),
+            'address' => $request->input('address'),
+            'location' => $request->input('location'),
+            'contact_number' => $request->input('contact_number'),
+            'email' => $request->input('email'),
+            'description' => $request->input('description'),
+            'rooms' => $request->input('rooms'),
+            'facilities' => $request->input('facilities'),
+            'images' => [], // Initialize with an empty array
+        ]);
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('hotel_images', 'public');
+                $hotel->images[] = asset("storage/{$path}");
+            }
+            $hotel->save();
+        }
+
+        return redirect()->route('hotels.index')->with('success', 'Hotel created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit( $id)
-    {
-        $hotel=Hotel::find($id);
-        return view('edithotel',['hotel'=>$hotel]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        $hotel=hotel::find($id);
-        $hotel->name= $request->name;
-        $hotel->address=$request->address;
-        $hotel->location=$request->location;
-        $hotel->contact_number=$request->contact_number;
-        $hotel->email=$request->email;
-        $hotel->description=$request->description;
-        $hotel->rooms=$request->rooms;
-        $hotel->facilities=$request->facilities;
-        $hotel->save();
-        return redirect (route('hotel.index'));
-
-
-    }
-    
-
-public function list()
-{
-    $hotels = Hotel::all(); 
-    return view('list',['hotels'=>$hotels]);
-}
-
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        Hotel::destroy($id);
-        return redirect (route('hotel.index'));
-    }
+    // Other methods...
 }
