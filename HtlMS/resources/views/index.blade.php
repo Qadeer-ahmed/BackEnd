@@ -19,7 +19,7 @@
         <h2>Create/Update Hotel</h2>
         <div class="row">
             <div class="col-md-6">
-                <form action=" " method="POST" enctype="multipart/form-data">
+                <form action=" " method="POST" >
                     @csrf
                     @if (isset($hotel))
                         @method('PUT')
@@ -75,10 +75,7 @@
                     </div>
 
                     <!-- Add other form fields here -->
-                    <div class="form-group">
-                        <label for="images">Images</label>
-                        <input type="file" class="form-control" id="images" name="images[]" multiple>
-                    </div>
+                   
 
                     <div class="mb-3">
                         <button type="submit" class="btn btn-primary">{{ isset($hotel) ? 'Update' : 'Create' }}
@@ -126,11 +123,7 @@
 
                             </div>
                             <td>
-                                <div>
-                                    @foreach ($hotel->images as $image)
-                                        <img src="{{ $image }}" alt="Hotel Image">
-                                    @endforeach
-                                </div>
+                                
                                 <a href="{{ url('/edit', $hotel->id) }}" class="btn btn-warning">Edit</a>
                                 <form action="" method="POST" style="display: inline-block;">
                                     @csrf

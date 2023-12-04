@@ -9,42 +9,80 @@ class HotelController extends Controller
 {
     // Other methods...
 
-    public function store(Request $request)
+    public function create(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'address' => 'required|string',
-            'location' => 'required|string',
-            'contact_number' => 'required|string',
-            'email' => 'required|email',
-            'description' => 'required|string',
-            'rooms' => 'required|integer',
-            'facilities' => 'array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-
-        $hotel = Hotel::create([
-            'name' => $request->input('name'),
-            'address' => $request->input('address'),
-            'location' => $request->input('location'),
-            'contact_number' => $request->input('contact_number'),
-            'email' => $request->input('email'),
-            'description' => $request->input('description'),
-            'rooms' => $request->input('rooms'),
-            'facilities' => $request->input('facilities'),
-            'images' => [], // Initialize with an empty array
-        ]);
-
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $path = $image->store('hotel_images', 'public');
-                $hotel->images[] = asset("storage/{$path}");
-            }
+      $hotel=new Hotel;
+            $hotel->name=$request->name;
+            $hotel->location=$request->location;
+            $hotel->contact_number=$request->contact_number;
+            $hotel->email=$request->email;
+            $hotel->description=$request->description;
+            $hotel->rooms=$request->rooms;
+            $hotel->facilities=$request->facilities;
+            $hotel->address=$request->address;
+            $hotel->name=$request->name;
+            
+          
             $hotel->save();
-        }
+        
 
-        return redirect()->route('hotels.index')->with('success', 'Hotel created successfully.');
+        return redirect()->route('hotel.index');
+    }
+    public function index(){
+        $hotels=hotel::all();
+
+
+        return view('index',['hotels'=>$hotels]);
+    }
+    public function list()
+    {
+        // Implementation for listing hotels
+        // Fetch hotels from the database and pass them to the view
+
+        // Example:
+         $hotels = Hotel::all();
+         return view('hotel.list', compact('hotels'));
     }
 
-    // Other methods...
-}
+    public function edit($id)
+    {
+      
+
+
+        $hotel = Hotel::find($id);
+        return view('edithotel', compact('hotel'));
+    }
+
+    public function update(Request $request, $id)
+    {
+    
+         $hotel = Hotel::find($id);
+         $hotel->name=$request->name;
+         $hotel->location=$request->location;
+         $hotel->contact_number=$request->contact_number;
+         $hotel->email=$request->email;
+         $hotel->description=$request->description;
+         $hotel->rooms=$request->rooms;
+         $hotel->facilities=$request->facilities;
+         $hotel->address=$request->address;
+         $hotel->name=$request->name;
+         return redirect()->route('hotel.index');
+         
+    }
+    
+              
+    
+
+    public function destroy($id)
+    {
+       
+         $hotel = Hotel::find($id);
+         $hotel->delete();
+
+
+        return redirect()->route('hotel.index');
+    }
+
+        // Redirect or return a response as needed
+    }
+    
