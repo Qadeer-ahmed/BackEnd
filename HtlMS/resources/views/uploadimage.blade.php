@@ -15,7 +15,7 @@
                     <div class="card-header">{{ __('Upload Image') }}</div>
 
                     <div class="card-body">
-                        <form action="{{ route('upload.image') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('image.upload') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
                             <div class="form-group">

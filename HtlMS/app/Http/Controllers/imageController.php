@@ -42,5 +42,18 @@ public function uploadImage(Request $request)
 
     return redirect()->back()->with('success', 'Image uploaded successfully.');
 }
+// app/Http/Controllers/ImageController.php
 
+   // app/Http/Controllers/ImageController.php
+
+
+    public function showImages()
+    {
+        $images = Image::all();
+
+        return view('showimage',['images'=>$images]);
+    }
 }
+
+
+

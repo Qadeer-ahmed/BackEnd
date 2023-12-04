@@ -41,7 +41,7 @@ class HotelController extends Controller
 
         // Example:
          $hotels = Hotel::all();
-         return view('hotel.list', compact('hotels'));
+         return view('list', compact('hotels'));
     }
 
     public function edit($id)
