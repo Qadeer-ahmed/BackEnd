@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\imageController;
+use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,4 +27,10 @@ Route::get('/hotels/list', [HotelController::class, 'list'])->name('hotel.show')
 Route::get('/edit/{id}', [HotelController::class, 'edit'])->name('hotel.edit');
 Route::put('/edit/{id}', [HotelController::class, 'update'])->name('hotel.update');
 Route::get('/delete/{id}', [HotelController::class, 'destroy'])->name('hotel.destroy');
+
+Route::get('/rooms', [RoomController::class, 'create'])->name('rooms.create');
+Route::post('/rooms', [RoomController::class, 'store'])->name('rooms.store');
+Route::get('/rooms/{id}/edit', [RoomController::class, 'edit'])->name('rooms.edit');
+Route::put('/rooms/{id}', [RoomController::class, 'update'])->name('rooms.update');
+Route::delete('/rooms/{id}', [RoomController::class, 'destroy'])->name('rooms.destroy');
 
