@@ -27,6 +27,7 @@ public function uploadImage(Request $request)
     Storage::disk('public')->put($filename, file_get_contents($uploadedFile));
 
     // Save the image details in the database
+
     $image = new Image();
         
         

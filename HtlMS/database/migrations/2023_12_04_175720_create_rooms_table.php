@@ -19,7 +19,7 @@ return new class extends Migration
           
             $table->string('status');
             $table->text('description')->nullable();
-            $table->decimal('price_per_night', 10, 2);
+            
             $table->timestamps();
 
             // Define foreign key relationships

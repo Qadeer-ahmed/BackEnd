@@ -1,13 +1,5 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Rooms</title>
-</head>
-<body>
-    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,8 +12,9 @@
     <h1>Create A Room</h1>
 
 <div class="container mt-5">
-    <form action="{{ route('rooms.store') }}" method="POST">
+    <form action="{{ route('rooms.create') }}" method="POST">
         @csrf
+        @method('POST')
         <!-- Hotel ID -->
         <div class="form-group">
             <label for="hotel_id">Hotel ID:</label>
@@ -59,7 +52,7 @@
         </div>
 
         <!-- Submit Button -->
-        <button type="Create Room" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
 <table class="table table-bordered">

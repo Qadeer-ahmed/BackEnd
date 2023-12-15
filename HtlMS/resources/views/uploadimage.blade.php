@@ -8,7 +8,12 @@
 </head>
 <body>
     <!-- resources/views/images/create.blade.php -->
-
+    @if($errors)
+    @foreach ($errors as $error)
+        <p>{{$error}}</p>
+    @endforeach
+    @endif
+    
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">

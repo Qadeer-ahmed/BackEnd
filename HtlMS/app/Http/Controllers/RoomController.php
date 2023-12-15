@@ -13,16 +13,30 @@ class RoomController extends Controller
      */
     public function index()
     {
-
+        $rooms=Room::all();
+      return view('rooms',['rooms'=>$rooms]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        $rooms=Room::all();
-        return view('rooms',['rooms'=>$rooms]);
+        public function create(Request $request)
+        {
+          $room=new Room;
+                $room->hotel_id=$request->hotel_id;
+                $room->room_number=$request->room_number;
+                $room->floor=$request->floor;
+                $room->description=$request->description;
+                $room->status=$request->status;
+                
+                
+              
+                $room->save();
+               
+               
+                return redirect()->route('rooms.index');
+    
+            
     }
 
     /**
@@ -30,16 +44,16 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'hotel_id' => 'required|numeric',
-            'room_number' => 'required|string',
-            'floor' => 'required|integer',
-            'status' => 'required|string',
-            'description' => 'nullable|string',
-            'price_per_night' => 'required|numeric',
-        ]);
-        Room::create($validatedData);
-        return redirect()->route('rooms.create');
+        // $validatedData = $request->validate([
+        //     'hotel_id' => 'required|numeric',
+        //     'room_number' => 'required|string',
+        //     'floor' => 'required|integer',
+        //     'status' => 'required|string',
+        //     'description' => 'nullable|string',
+        //     'price_per_night' => 'required|numeric',
+        // ]);
+        // Room::create($validatedData);
+        // return redirect()->route('rooms.create');
     }
     
 
@@ -72,7 +86,7 @@ class RoomController extends Controller
         $room->update($validatedData);
 
         // Redirect to a success page or do something else
-        return redirect()->route('rooms.create');
+        return redirect()->route('rooms.index');
     }
 
     public function destroy($id)
@@ -82,7 +96,6 @@ class RoomController extends Controller
         $room->delete();
 
         // Redirect to a success page or do something else
-        return redirect()->route('rooms.create');
+        return redirect()->route('rooms.index');
     }
 }
-
